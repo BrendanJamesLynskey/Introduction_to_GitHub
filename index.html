@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Introduction to GitHub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/black.min.css">
+<style>
+  :root {
+    --amber:  #f5a623;
+    --green:  #4ecb8d;
+    --purple: #a78bfa;
+    --blue:   #60a5fa;
+    --red:    #f87171;
+    --bg:     #0a0a0f;
+    --bg2:    #10101a;
+    --bg3:    #181824;
+    --border: #2a2a3a;
+    --text:   #e8e8f0;
+    --muted:  #8888a8;
+  }
+
+  .reveal-viewport { background: var(--bg); }
+  .reveal .slides section { background: transparent; }
+
+  .reveal { font-family: 'DM Sans', sans-serif; color: var(--text); }
+  .reveal h1, .reveal h2, .reveal h3 { font-family: 'Playfair Display', serif; font-weight: 700; }
+  .reveal h1 { font-size: 1.6em; color: var(--amber); line-height: 1.1; }
+  .reveal h2 { font-size: 1.1em; color: var(--amber); margin-bottom: .2em; }
+  .reveal h3 { font-size: .78em; color: var(--green); margin-bottom: .15em; }
+  .reveal p  { font-size: .56em; line-height: 1.45; color: var(--text); }
+  .reveal li { font-size: .54em; line-height: 1.45; margin-bottom: .1em; }
+  .reveal code { font-family: 'JetBrains Mono', monospace; font-size: .72em; }
+  .reveal pre  { box-shadow: none; background: var(--bg3); border: 1px solid var(--border);
+                 border-radius: 6px; padding: .3em .5em; margin: .25em 0; }
+  .reveal pre code { font-size: .52em; line-height: 1.35; background: transparent; color: #cdd6f4; }
+
+  /* ── slide chrome ── */
+  .slide-hdr {
+    display: flex; align-items: center; gap: .4em;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: .2em; margin-bottom: .3em;
+  }
+  .slide-hdr .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .42em; font-weight: 500;
+    color: var(--bg); background: var(--amber);
+    padding: .1em .4em; border-radius: 3px;
+    letter-spacing: .04em;
+  }
+  .slide-hdr h2 { margin: 0; font-size: .95em; }
+
+  /* ── two-column ── */
+  .cols   { display: grid; gap: .5em; }
+  .cols-2 { grid-template-columns: 1fr 1fr; }
+  .cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .cols-6040 { grid-template-columns: 6fr 4fr; }
+  .cols-4060 { grid-template-columns: 4fr 6fr; }
+
+  /* ── cards ── */
+  .card {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 6px; padding: .35em .6em;
+  }
+  .card.amber { border-left: 3px solid var(--amber); }
+  .card.green { border-left: 3px solid var(--green); }
+  .card.purple{ border-left: 3px solid var(--purple); }
+  .card.blue  { border-left: 3px solid var(--blue); }
+  .card.red   { border-left: 3px solid var(--red); }
+  .card h3 { font-size: .64em; margin: 0 0 .12em; }
+  .card p  { font-size: .52em; margin: 0; color: #b8b8d0; }
+  .card ul { margin: 0; padding-left: 1em; }
+  .card li { font-size: .52em; color: #b8b8d0; margin-bottom: .02em; }
+
+  /* ── table ── */
+  .reveal table { width: 100%; border-collapse: collapse; font-size: .5em; }
+  .reveal table th { background: var(--bg3); color: var(--amber); font-weight: 600;
+                     padding: .2em .4em; border: 1px solid var(--border); text-align: left; }
+  .reveal table td { padding: .18em .4em; border: 1px solid var(--border); color: #ccc; }
+  .reveal table tr:nth-child(even) td { background: #0e0e18; }
+
+  /* ── accent spans ── */
+  .a  { color: var(--amber); font-weight: 600; }
+  .g  { color: var(--green); font-weight: 600; }
+  .p  { color: var(--purple); font-weight: 600; }
+  .b  { color: var(--blue); font-weight: 600; }
+  .r  { color: var(--red); font-weight: 600; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+
+  /* ── SVG graph diagrams ── */
+  svg.diagram { display: block; margin: 0 auto; overflow: visible; }
+
+  /* ── pill badges ── */
+  .pill {
+    display: inline-block; font-family: 'JetBrains Mono', monospace;
+    font-size: .44em; padding: .08em .4em; border-radius: 99px;
+    border: 1px solid; margin: 0 .08em;
+  }
+  .pill.amber { color: var(--amber); border-color: var(--amber); }
+  .pill.green { color: var(--green); border-color: var(--green); }
+  .pill.purple{ color: var(--purple); border-color: var(--purple); }
+  .pill.blue  { color: var(--blue); border-color: var(--blue); }
+
+  /* ── footer — hidden; was overlapping scrollable content ── */
+  .reveal .slide-footer { display: none; }
+  /* title slide special */
+  .title-slide h1 { font-size: 1.8em; }
+  .title-slide .subtitle {
+    font-size: .7em; color: var(--green); font-family: 'DM Sans', sans-serif;
+    font-weight: 300; letter-spacing: .04em; margin: .3em 0 .6em;
+  }
+  .title-slide .meta { font-size: .48em; color: var(--muted); font-family: 'JetBrains Mono', monospace; }
+
+  /* ── super-step animator ── */
+  .ss-row {
+    display: flex; gap: .25em; align-items: center;
+    margin: .1em 0; font-size: .55em; font-family: 'JetBrains Mono', monospace;
+  }
+  .ss-node {
+    padding: .2em .55em; border-radius: 5px; font-size: .9em;
+    background: var(--bg3); border: 1px solid var(--border); color: var(--text);
+  }
+  .ss-node.active { background: #1a2a1a; border-color: var(--green); color: var(--green); }
+  .ss-node.done   { background: #1a1a2a; border-color: var(--purple); color: var(--purple); }
+  .ss-arrow { color: var(--amber); }
+  .ss-label { font-size: .8em; color: var(--muted); margin-left: .3em; }
+
+  /* reduce default margins */
+  .reveal ul, .reveal ol { margin: .15em 0 .15em 1em; }
+.reveal .slides > section { display: flex !important; flex-direction: column !important; overflow-y: auto !important; align-items: stretch !important; justify-content: flex-start !important; }
+</style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+
+<!-- ═══════════════════════════════ SLIDE 01 — TITLE ═══════════════════════════════ -->
+<section class="title-slide" data-background-color="#0a0a0f">
+  <div style="text-align:left; max-width:820px; margin:0 auto; padding: 1em 0;">
+    <div style="font-family:'JetBrains Mono',monospace; font-size:.5em; color:var(--muted); margin-bottom:.4em; letter-spacing:.1em;">
+      TECHNICAL PRESENTATION
+    </div>
+    <h1>Introduction to<br>GitHub</h1>
+    <div class="subtitle">Git Hosting, Collaboration &amp; Automation</div>
+    <div style="width:60px; height:3px; background:var(--amber); margin-bottom:1.4em;"></div>
+    <div style="display:flex; gap:1.2em; flex-wrap:wrap; margin-bottom:1em;">
+      <span class="pill amber">GitHub</span>
+      <span class="pill green">Actions</span>
+      <span class="pill purple">GitLab</span>
+      <span class="pill blue">CLI</span>
+    </div>
+    <div class="ss-row" style="margin-top:0.6em;">
+      <span class="ss-node active">📁 Repo</span>
+      <span class="ss-arrow">→</span>
+      <span class="ss-node active">🌿 Branch</span>
+      <span class="ss-arrow">→</span>
+      <span class="ss-node active">🔀 PR</span>
+      <span class="ss-arrow">→</span>
+      <span class="ss-node active">👀 Review</span>
+      <span class="ss-arrow">→</span>
+      <span class="ss-node done">✅ Merge</span>
+      <span class="ss-arrow">→</span>
+      <span class="ss-node done">🚀 Deploy</span>
+    </div>
+    <p style="max-width:620px; color:#a0a0c0; font-size:.56em; line-height:1.5; margin-top:1em;">
+      From repositories and pull requests to CI/CD pipelines and the GitHub CLI
+    </p>
+    <div class="meta" style="margin-top:1.4em;">
+      Code &nbsp;·&nbsp; Collaborate &nbsp;·&nbsp; Automate &nbsp;·&nbsp; Ship
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════ SLIDE 02 — AGENDA ═══════════════════════════════ -->
+<section data-background-color="#0a0a0f">
+  <div class="slide-hdr">
+    <span class="tag">01</span>
+    <h2>Topics</h2>
+  </div>
+  <div class="cols cols-2">
+    <div>
+      <div class="card amber">
+        <h3 class="a">Foundations</h3>
+        <ul>
+          <li>What GitHub is and why it matters</li>
+          <li>Repositories, branches, and pull requests</li>
+          <li>Markdown for docs, READMEs, and wikis</li>
+          <li>Code review workflows</li>
+        </ul>
+      </div>
+      <div class="card green" style="margin-top:0.5em;">
+        <h3 class="g">Automation &amp; Tooling</h3>
+        <ul>
+          <li>GitHub Actions — workflows, jobs, and steps</li>
+          <li>GitHub CLI (<code>gh</code>) for terminal-driven workflows</li>
+          <li>GitHub Pages, Releases, and Packages</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="card purple">
+        <h3 class="p">Security &amp; AI</h3>
+        <ul>
+          <li>Dependabot, code scanning, secret scanning</li>
+          <li>GitHub Copilot and AI-assisted development</li>
+        </ul>
+      </div>
+      <div class="card blue" style="margin-top:0.5em;">
+        <h3 class="b">GitLab &amp; Alternatives</h3>
+        <ul>
+          <li>GitLab platform and CI/CD</li>
+          <li>GitHub vs GitLab — feature-by-feature comparison</li>
+          <li>Bitbucket, Gitea, and self-hosted options</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════ SLIDE 03 — WHAT IS GITHUB ═══════════════════════════════ -->
+<section data-background-color="#0a0a0f">
+  <div class="slide-hdr">
+    <span class="tag">02</span>
+    <h2>What Is GitHub?</h2>
+  </div>
+  <p>GitHub is the world's largest <span class="a">source code hosting platform</span>, built on top of Git. It adds collaboration, code review, project management, CI/CD, and security tooling around Git's distributed version control.</p>
+
+  <div class="cols cols-2" style="margin-top:0.5em;">
+    <div>
+      <div class="card amber">
+        <h3 class="a">Key facts</h3>
+        <ul>
+          <li>Founded 2008, acquired by Microsoft in 2018 for $7.5 billion</li>
+          <li>100+ million developers, 420+ million repositories (2024)</li>
+          <li>Free for public and private repos (with limits on Actions minutes)</li>
+          <li>Available as SaaS (github.com) or self-hosted (GitHub Enterprise Server)</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="card green">
+        <h3 class="g">What GitHub adds to Git</h3>
+        <ul>
+          <li><span class="a">Pull requests</span> — structured code review before merging</li>
+          <li><span class="g">Issues &amp; Projects</span> — lightweight project management</li>
+          <li><span class="p">Actions</span> — CI/CD pipelines defined as YAML</li>
+          <li><span class="b">Packages</span> — host npm, Docker, Maven packages</li>
+          <li><span class="a">Security</span> — dependency scanning, secret detection</li>
+          <li><span class="g">Pages</span> — free static site hosting from a repo</li>
+          <li><span class="p">Copilot</span> — AI pair programming in the editor</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="card blue" style="margin-top:0.4em;">
+    <p>GitHub is not Git. You can use Git without GitHub, and GitHub without the command line (though you shouldn't).</p>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════ SLIDE 04 — REPOS & INTERFACE ═══════════════════════════════ -->
+<section data-background-color="#0a0a0f">
+  <div class="slide-hdr">
+    <span class="tag">03</span>
+    <h2>Repositories &amp; the GitHub Interface</h2>
+  </div>
+  <p>A <span class="a">repository</span> (repo) is a project — source code, history, branches, issues, and settings in one place.</p>
+
+  <div class="cols cols-2" style="margin-top:0.5em;">
+    <div>
+      <div class="card amber">
+        <h3 class="a">Anatomy of a GitHub repo</h3>
+        <ul>
+          <li><span class="a">Code tab</span> — file browser, branch selector, commit history</li>
+          <li><span class="g">Issues tab</span> — bug reports, feature requests, discussions</li>
+          <li><span class="p">Pull requests tab</span> — proposed changes awaiting review</li>
+          <li><span class="b">Actions tab</span> — CI/CD workflow runs</li>
+          <li><span class="a">Settings</span> — branch protection, secrets, webhooks, collaborators</li>
+        </ul>
+      </div>
+      <div class="card purple" style="margin-top:0.4em;">
+        <h3 class="p">Visibility</h3>
+        <ul>
+          <li><span class="g">Public</span> — anyone can see and fork; free</li>
+          <li><span class="a">Private</span> — only invited collaborators; free (with limits)</li>
+          <li><span class="p">Internal</span> — visible to all org members (Enterprise only)</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <table>
+        <thead><tr><th>File</th><th>Purpose</th></tr></thead>
+        <tbody>
+          <tr><td><code>README.md</code></td><td>Project overview — rendered on the repo homepage</td></tr>
+          <tr><td><code>LICENSE</code></td><td>Legal terms for using the code</td></tr>
+          <tr><td><code>.gitignore</code></td><td>Patterns for files Git should not track</td></tr>
+          <tr><td><code>CONTRIBUTING.md</code></td><td>Guidelines for contributors</td></tr>
+          <tr><td><code>CODEOWNERS</code></td><td>Auto-assign reviewers based on file paths</td></tr>
+          <tr><td><code>.github/</code></td><td>Actions workflows, issue templates, PR templates</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════ SLIDE 05 — MARKDOWN ═══════════════════════════════ -->
+<section data-background-color="#0a0a0f">
+  <div class="slide-hdr">
+    <span class="tag">04</span>
+    <h2>Markdown on GitHub</h2>
+  </div>
+  <p>GitHub uses <span class="a">GitHub Flavoured Markdown (GFM)</span> — standard Markdown extended with tables, task lists, syntax-highlighted code blocks, and auto-linked references.</p>
+
+  <div class="cols cols-2" style="margin-top:0.5em;">
+    <div>
+      <div class="card amber">
+        <h3 class="a">Essential syntax</h3>
+        <pre><code># Heading 1
+## Heading 2
+### Heading 3
+
+**bold** and *italic* and `inline code`
+
+- bullet list
+- [ ] task list (unchecked)
+- [x] task list (checked)
+
+[Link text](https://example.com)
+![Alt text](image.png)
+
+| Column A | Column B |
+|----------|----------|
+| cell     | cell     |</code></pre>
+      </div>
+    </div>
+    <div>
+      <div class="card green">
+        <h3 class="g">GitHub-specific extensions</h3>
+        <ul>
+          <li><code>#123</code> — auto-links to issue or PR number 123</li>
+          <li><code>@username</code> — mentions a user (sends notification)</li>
+          <li><code>:emoji_name:</code> — renders emoji</li>
+          <li><code>&lt;details&gt;</code> — collapsible sections</li>
+          <li>Mermaid diagrams in fenced code blocks</li>
+        </ul>
+      </div>
+      <div class="card purple" style="margin-top:0.4em;">
+        <h3 class="p">Where Markdown is used</h3>
+        <p>READMEs, issues, PRs, comments, wikis, GitHub Pages, release notes, discussion posts, and profile READMEs (<code>username/username</code> repo).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════ SLIDE 06 — BRANCHING & PRs ═══════════════════════════════ -->
+<section data-background-color="#0a0a0f">
+  <div class="slide-hdr">
+    <span class="tag">05</span>
+    <h2>Branching &amp; Pull Requests</h2>
+  </div>
+  <p>A <span class="a">pull request</span> (PR) is GitHub's mechanism for proposing, reviewing, and merging changes. It is the central unit of collaboration.</p>
+
+  <div class="cols cols-2" style="margin-top:0.5em;">
+    <div>
+      <div class="card amber">
+        <h3 class="a">The PR workflow</h3>
+        <div class="ss-row"><span class="ss-node active">Create branch</span></div>
+        <div class="ss-row"><span class="ss-arrow">↓</span></div>
+        <div class="ss-row"><span class="ss-node active">Make commits</span></div>
+        <div class="ss-row"><span class="ss-arrow">↓</span></div>
+        <div class="ss-row"><span class="ss-node active">Open PR</span></div>
+        <div class="ss-row"><span class="ss-arrow">↓</span></div>
+        <div class="ss-row"><span class="ss-node active">CI runs + review</span></div>
+        <div class="ss-row"><span class="ss-arrow">↓</span></div>
+        <div class="ss-row"><span class="ss-node done">Merge &amp; delete branch</span></div>
+      </div>
+      <div class="card blue" style="margin-top:0.4em;">
+        <h3 class="b">Draft pull requests</h3>
+        <p>Open a PR as <span class="b">Draft</span> to signal work-in-progress. CI still runs, but reviewers know it is not ready.</p>
+      </div>
+    </div>
+    <div>
+      <div class="card green">
+        <h3 class="g">Branch protection rules</h3>
+        <ul>
+          <li>At least one (or two) approving reviews</li>
+          <li>All CI status checks to pass</li>
+          <li>No force pushes or deletions</li>
+          <li>Linear history (squash or rebase merges only)</li>
+          <li>Signed commits</li>
+          <li>Up-to-date branch before merging</li>
+        </ul>
+      </div>
+      <table style="margin-top:0.4em;">
+        <thead><tr><th>Strategy</th><th>Result</th><th>When to use</th></tr></thead>
+        <tbody>
+          <tr><td><span class="a">Merge commit</span></td><td>Preserves all commits + merge commit</td><td>Full history matters</td></tr>
+          <tr><td><span class="g">Squash and merge</span></td><td>One commit on main</td><td>Default for most teams</td></tr>
+          <tr><td><span class="p">Rebase and merge</span></td><td>Replays commits onto main</td><td>Linear history purists</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════ SLIDE 07 — CODE REVIEW ═══════════════════════════════ -->
+<section data-background-color="#0a0a0f">
+  <div class="slide-hdr">
+    <span class="tag">06</span>
+    <h2>Code Review on GitHub</h2>
+  </div>
+  <p>Code review is the highest-leverage quality practice a team can adopt. GitHub's review tools make it structured and asynchronous.</p>
+
+  <div class="cols cols-2" style="margin-top:0.5em;">
+    <div>
+      <div class="card amber">
+        <h3 class="a">Review actions</h3>
+        <ul>
+          <li><span class="g">Comment</span> — feedback without explicit approval or rejection</li>
+          <li><span class="a">Approve</span> — "this is good to merge"</li>
+          <li><span class="r">Request changes</span> — "fix these issues before merging"</li>
+        </ul>
+      </div>
+      <div class="card green" style="margin-top:0.4em;">
+        <h3 class="g">Inline suggestions</h3>
+        <p>Click any line in the diff to leave a comment. Use <span class="g">suggestions</span> to propose exact code changes the author can accept with one click:</p>
+        <pre><code>```suggestion
+const result = items.filter(Boolean);
+```</code></pre>
+      </div>
+    </div>
+    <div>
+      <div class="card purple">
+        <h3 class="p">Review best practices</h3>
+        <ul>
+          <li>Review within 24 hours — blocked PRs kill velocity</li>
+          <li>Focus on correctness, security, and maintainability</li>
+          <li>Explain <em>why</em>, not just <em>what</em></li>
+          <li>Keep PRs small (&lt; 400 lines) — large PRs get rubber-stamped</li>
+          <li>Use CODEOWNERS to auto-assign domain experts</li>
+        </ul>
+      </div>
+      <div class="card blue" style="margin-top:0.4em;">
+        <h3 class="b">CODEOWNERS file</h3>
+        <pre><code># .github/CODEOWNERS
+*.js        @frontend-team
+*.py        @backend-team
+docs/       @tech-writers
+*.tf        @infra-team</code></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════ SLIDE 08 — ISSUES & PROJECTS ═══════════════════════════════ -->
+<section data-background-color="#0a0a0f">
+  <div class="slide-hdr">
+    <span class="tag">07</span>
+    <h2>GitHub Issues &amp; Projects</h2>
+  </div>
+  <div class="cols cols-2">
+    <div>
+      <div class="card amber">
+        <h3 class="a">Issues</h3>
+        <ul>
+          <li>Title, description (Markdown), labels, assignees, milestone</li>
+          <li>Templates: <code>.github/ISSUE_TEMPLATE/bug_report.md</code> or YAML forms</li>
+          <li>Close issues automatically: <code>Fixes #42</code> in the PR description</li>
+          <li>Pin up to 3 issues to the top of the Issues tab</li>
+          <li>Transfer issues between repos in the same org</li>
+        </ul>
+      </div>
+      <div class="card green" style="margin-top:0.4em;">
+        <h3 class="g">Labels &amp; Milestones</h3>
+        <p>Use labels to categorise: <code>bug</code>, <code>enhancement</code>, <code>documentation</code>, <code>good first issue</code>, <code>priority:high</code>. Group issues into milestones with a due date and progress bar.</p>
+      </div>
+    </div>
+    <div>
+      <div class="card purple">
+        <h3 class="p">GitHub Projects (v2)</h3>
+        <ul>
+          <li><span class="a">Board view</span> — Kanban columns (To Do, In Progress, Done)</li>
+          <li><span class="g">Table view</span> — spreadsheet-style with custom fields</li>
+          <li><span class="p">Roadmap view</span> — timeline with date ranges</li>
+          <li><span class="b">Automation</span> — auto-move items on PR merge, issue close</li>
+          <li>Scoped to an organisation or user — spans multiple repos</li>
+        </ul>
+      </div>
+      <div class="card blue" style="margin-top:0.4em;">
+        <h3 class="b">Issue forms (YAML)</h3>
+        <pre><code># .github/ISSUE_TEMPLATE/bug_report.yml
+name: Bug Report
+description: Report a bug
+body:
+  - type: input
+    id: version
+    attributes:
+      label: Version
+    validations:
+      required: true</code></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════ SLIDE 09 — ACTIONS FOUNDATIONS ═══════════════════════════════ -->
+<section data-background-color="#0a0a0f">
+  <div class="slide-hdr">
+    <span class="tag">08</span>
+    <h2>GitHub Actions — Foundations</h2>
+  </div>
+  <p><span class="a">GitHub Actions</span> is GitHub's built-in CI/CD and automation platform. Workflows are YAML files in <code>.github/workflows/</code>.</p>
+
+  <div class="cols cols-2" style="margin-top:0.5em;">
+    <div>
+      <table>
+        <thead><tr><th>Concept</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td><span class="a">Workflow</span></td><td>A YAML file defining an automated process</td></tr>
+          <tr><td><span class="g">Event / Trigger</span></td><td>What starts the workflow (<code>push</code>, <code>pull_request</code>, <code>schedule</code>)</td></tr>
+          <tr><td><span class="p">Job</span></td><td>A set of steps on a single runner</td></tr>
+          <tr><td><span class="b">Step</span></td><td>A single task — shell command or reusable Action</td></tr>
+          <tr><td><span class="a">Runner</span></td><td>The VM or container executing the job</td></tr>
+          <tr><td><span class="g">Action</span></td><td>Reusable, packaged step from the Marketplace</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <div class="card green">
+        <h3 class="g">Trigger examples</h3>
+        <pre><code>on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: '0 6 * * 1'   # Monday 06:00
+  workflow_dispatch:        # manual trigger
+  release:
+    types: [published]</code></pre>
+      </div>
+      <div class="card purple" style="margin-top:0.4em;">
+        <h3 class="p">Runner options</h3>
+        <ul>
+          <li><span class="a">GitHub-hosted</span> — <code>ubuntu-latest</code>, <code>windows-latest</code>, <code>macos-latest</code></li>
+          <li><span class="g">Self-hosted</span> — your own machines for GPU, on-prem, or cost control</li>
+          <li><span class="b">Larger runners</span> — more CPU/RAM (paid)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════ SLIDE 10 — ACTIONS SYNTAX ═══════════════════════════════ -->
+<section data-background-color="#0a0a0f">
+  <div class="slide-hdr">
+    <span class="tag">09</span>
+    <h2>GitHub Actions — Workflow Syntax</h2>
+  </div>
+  <div class="cols cols-6040">
+    <div>
+      <div class="card amber">
+        <h3 class="a">Complete workflow example</h3>
+        <pre><code># .github/workflows/ci.yml
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18, 20, 22]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run lint
+      - run: npm test -- --coverage
+  build:
+    needs: lint-and-test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm ci &amp;&amp; npm run build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/</code></pre>
+      </div>
+    </div>
+    <div>
+      <div class="card green">
+        <h3 class="g">Key syntax elements</h3>
+        <ul>
+          <li><code>needs:</code> — declare job dependencies</li>
+          <li><code>strategy.matrix</code> — run across multiple configs</li>
+          <li><code>if:</code> — conditionally run a step or job</li>
+          <li><code>env:</code> — environment variables at any level</li>
+          <li><code>secrets.*</code> — encrypted secrets</li>
+          <li><code>${{ github.sha }}</code> — expression context</li>
+        </ul>
+      </div>
+      <div class="card blue" style="margin-top:0.4em;">
+        <h3 class="b">Free tier</h3>
+        <p>Unlimited Actions minutes for <span class="g">public repos</span>. Private repos get 2,000 minutes/month on the Free plan.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════ SLIDE 11 — ACTIONS ADVANCED ═══════════════════════════════ -->
+<section data-background-color="#0a0a0f">
+  <div class="slide-hdr">
+    <span class="tag">10</span>
+    <h2>GitHub Actions — Advanced Patterns</h2>
+  </div>
+  <div class="cols cols-2">
+    <div>
+      <div class="card amber">
+        <h3 class="a">Reusable workflows</h3>
+        <p>Define a workflow in one repo, call it from others. DRY for organisation-wide CI standards.</p>
+        <pre><code>jobs:
+  deploy:
+    uses: my-org/shared/.github/
+      workflows/deploy.yml@main
+    with:
+      environment: production
+    secrets: inherit</code></pre>
+      </div>
+      <div class="card green" style="margin-top:0.4em;">
+        <h3 class="g">Caching</h3>
+        <pre><code>- uses: actions/cache@v4
+  with:
+    path: ~/.npm
+    key: npm-${{ hashFiles(
+      '**/package-lock.json') }}
+    restore-keys: npm-</code></pre>
+      </div>
+    </div>
+    <div>
+      <div class="card purple">
+        <h3 class="p">Concurrency control</h3>
+        <pre><code>concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true</code></pre>
+        <p>Prevents duplicate runs — new commit cancels old run.</p>
+      </div>
+      <div class="card blue" style="margin-top:0.4em;">
+        <h3 class="b">Environment protection</h3>
+        <ul>
+          <li>Define environments (<code>staging</code>, <code>production</code>) in settings</li>
+          <li>Require manual approval before deploying to production</li>
+          <li>Limit which branches can deploy to an environment</li>
+          <li>Add wait timers between deployments</li>
+        </ul>
+      </div>
+      <div class="card red" style="margin-top:0.4em;">
+        <h3 class="r">Secrets &amp; OIDC</h3>
+        <ul>
+          <li>Store secrets in repo or org settings — never in YAML</li>
+          <li>Use OIDC federation with AWS, GCP, Azure</li>
+          <li>Pin third-party Actions to full SHA, not tags</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════ SLIDE 12 — GITHUB CLI ═══════════════════════════════ -->
+<section data-background-color="#0a0a0f">
+  <div class="slide-hdr">
+    <span class="tag">11</span>
+    <h2>GitHub CLI (gh)</h2>
+  </div>
+  <p>The <span class="a">GitHub CLI</span> (<code>gh</code>) brings GitHub to the terminal. It replaces switching to the browser for PRs, issues, Actions, and more.</p>
+
+  <div class="cols cols-3" style="margin-top:0.5em;">
+    <div>
+      <div class="card amber">
+        <h3 class="a">Installation</h3>
+        <pre><code># macOS
+brew install gh
+
+# Ubuntu / Debian
+sudo apt install gh
+
+# Windows
+winget install GitHub.cli</code></pre>
+      </div>
+      <div class="card green" style="margin-top:0.4em;">
+        <h3 class="g">Authentication</h3>
+        <pre><code>gh auth login
+gh auth status
+gh auth switch</code></pre>
+      </div>
+    </div>
+    <div>
+      <div class="card purple">
+        <h3 class="p">Repository operations</h3>
+        <pre><code>gh repo create my-app \
+  --public --clone
+gh repo clone owner/repo
+gh repo fork owner/repo \
+  --clone
+gh repo view owner/repo \
+  --web
+gh repo list my-org \
+  --limit 50</code></pre>
+      </div>
+    </div>
+    <div>
+      <div class="card blue">
+        <h3 class="b">Pull request operations</h3>
+        <pre><code>gh pr create --title "Add X" \
+  --body "Description"
+gh pr list --state open
+gh pr checkout 42
+gh pr review 42 --approve
+gh pr merge 42 --squash \
+  --delete-branch
+gh pr checks 42</code></pre>
+      </div>
+      <div class="card amber" style="margin-top:0.4em;">
+        <h3 class="a">Issue operations</h3>
+        <pre><code>gh issue create \
+  --title "Bug" --label bug
+gh issue list --assignee @me
+gh issue close 99</code></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════ SLIDE 13 — CLI WORKFLOWS ═══════════════════════════════ -->
+<section data-background-color="#0a0a0f">
+  <div class="slide-hdr">
+    <span class="tag">12</span>
+    <h2>GitHub CLI — Workflow Examples</h2>
+  </div>
+  <div class="cols cols-2">
+    <div>
+      <div class="card amber">
+        <h3 class="a">Actions from the terminal</h3>
+        <pre><code>gh run list
+gh run view 123456
+gh run watch 123456
+gh run rerun 123456
+gh workflow list
+gh workflow run deploy.yml
+gh workflow run deploy.yml \
+  -f env=staging</code></pre>
+      </div>
+      <div class="card green" style="margin-top:0.4em;">
+        <h3 class="g">gh api — raw API access</h3>
+        <pre><code># Get repo info
+gh api repos/owner/repo
+
+# List PR comments
+gh api repos/owner/repo/\
+  pulls/42/comments
+
+# Create a label
+gh api repos/owner/repo/labels \
+  -f name="priority:critical" \
+  -f color="d73a4a"</code></pre>
+      </div>
+    </div>
+    <div>
+      <div class="card purple">
+        <h3 class="p">Aliases &amp; extensions</h3>
+        <pre><code># Create a custom alias
+gh alias set prs \
+  'pr list --state open \
+  --assignee @me'
+gh prs   # now works
+
+# Install community extensions
+gh extension install \
+  dlvhdr/gh-dash
+gh extension install \
+  github/gh-copilot</code></pre>
+      </div>
+      <div class="card blue" style="margin-top:0.4em;">
+        <h3 class="b">Scripting with gh</h3>
+        <pre><code># Close all wontfix issues
+gh issue list --label "wontfix" \
+  --json number \
+  --jq '.[].number' \
+  | xargs -I {} gh issue close {}
+
+# Create PRs across repos
+for repo in api web worker; do
+  gh pr create \
+    --repo "my-org/$repo" \
+    --title "Bump deps"
+done</code></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════ SLIDE 14 — PAGES & RELEASES ═══════════════════════════════ -->
+<section data-background-color="#0a0a0f">
+  <div class="slide-hdr">
+    <span class="tag">13</span>
+    <h2>GitHub Pages &amp; Releases</h2>
+  </div>
+  <div class="cols cols-2">
+    <div>
+      <div class="card amber">
+        <h3 class="a">GitHub Pages</h3>
+        <p>Free static site hosting directly from a repository.</p>
+        <ul>
+          <li>Serve from <code>main</code>, <code>gh-pages</code>, or <code>/docs</code></li>
+          <li>Custom domains with HTTPS (free Let's Encrypt cert)</li>
+          <li>Built-in Jekyll support, or any static site via Actions</li>
+          <li>URL: <code>username.github.io/repo-name</code></li>
+        </ul>
+      </div>
+      <div class="card green" style="margin-top:0.4em;">
+        <h3 class="g">Pages via Actions</h3>
+        <pre><code># .github/workflows/pages.yml
+name: Deploy to Pages
+on:
+  push:
+    branches: [main]
+permissions:
+  pages: write
+  id-token: write
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/upload-pages-
+          artifact@v3
+        with:
+          path: './dist'
+      - uses: actions/deploy-
+          pages@v4</code></pre>
+      </div>
+    </div>
+    <div>
+      <div class="card purple">
+        <h3 class="p">Releases</h3>
+        <ul>
+          <li>Tag a commit with a version (<code>v1.2.0</code>)</li>
+          <li>Attach compiled binaries, installers, or archives</li>
+          <li>Auto-generate release notes from merged PRs</li>
+          <li>Mark as pre-release or latest</li>
+        </ul>
+      </div>
+      <div class="card blue" style="margin-top:0.4em;">
+        <h3 class="b">Create a release with the CLI</h3>
+        <pre><code>gh release create v1.2.0 \
+  --title "v1.2.0" \
+  --generate-notes \
+  ./dist/app-linux \
+  ./dist/app-macos \
+  ./dist/app-windows.exe</code></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════ SLIDE 15 — PACKAGES & GHCR ═══════════════════════════════ -->
+<section data-background-color="#0a0a0f">
+  <div class="slide-hdr">
+    <span class="tag">14</span>
+    <h2>GitHub Packages &amp; Container Registry</h2>
+  </div>
+  <p><span class="a">GitHub Packages</span> is a package registry integrated with GitHub. Host packages alongside your source code with unified permissions.</p>
+
+  <div class="cols cols-2" style="margin-top:0.5em;">
+    <div>
+      <table>
+        <thead><tr><th>Registry</th><th>Package type</th><th>URL</th></tr></thead>
+        <tbody>
+          <tr><td><span class="a">Container (GHCR)</span></td><td>Docker / OCI</td><td><code>ghcr.io/owner/image</code></td></tr>
+          <tr><td><span class="g">npm</span></td><td>Node.js</td><td><code>npm.pkg.github.com</code></td></tr>
+          <tr><td><span class="p">Maven</span></td><td>Java / Kotlin</td><td><code>maven.pkg.github.com</code></td></tr>
+          <tr><td><span class="b">NuGet</span></td><td>.NET</td><td><code>nuget.pkg.github.com</code></td></tr>
+          <tr><td><span class="a">RubyGems</span></td><td>Ruby</td><td><code>rubygems.pkg.github.com</code></td></tr>
+        </tbody>
+      </table>
+      <div class="card green" style="margin-top:0.4em;">
+        <h3 class="g">Visibility &amp; access</h3>
+        <ul>
+          <li>Packages inherit repo visibility by default</li>
+          <li>Public packages are free; private count toward storage</li>
+          <li>Fine-grained permissions — grant read/write per package</li>
+          <li><code>GITHUB_TOKEN</code> provides automatic auth in Actions</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="card purple">
+        <h3 class="p">Publishing a Docker image</h3>
+        <pre><code># In a GitHub Actions workflow
+- name: Log in to GHCR
+  uses: docker/login-action@v3
+  with:
+    registry: ghcr.io
+    username: ${{ github.actor }}
+    password: ${{ secrets.
+      GITHUB_TOKEN }}
+
+- name: Build and push
+  uses: docker/build-push-action@v5
+  with:
+    push: true
+    tags: ghcr.io/${{
+      github.repository
+    }}:${{ github.sha }}</code></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════ SLIDE 16 — SECURITY ═══════════════════════════════ -->
+<section data-background-color="#0a0a0f">
+  <div class="slide-hdr">
+    <span class="tag">15</span>
+    <h2>GitHub Security Features</h2>
+  </div>
+  <p>GitHub provides multiple layers of <span class="a">supply chain and code security</span> — most are free for public repos and included in GitHub Advanced Security for private repos.</p>
+
+  <div class="cols cols-2" style="margin-top:0.5em;">
+    <div>
+      <div class="card amber">
+        <h3 class="a">Dependabot</h3>
+        <ul>
+          <li><span class="r">Alerts</span> — notifies when dependencies have known CVEs</li>
+          <li><span class="a">Security updates</span> — auto-opens PRs to bump vulnerable deps</li>
+          <li><span class="g">Version updates</span> — keeps dependencies fresh on a schedule</li>
+        </ul>
+        <pre style="margin-top:0.3em;"><code># .github/dependabot.yml
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"</code></pre>
+      </div>
+    </div>
+    <div>
+      <div class="card green">
+        <h3 class="g">Code scanning (CodeQL)</h3>
+        <p>Static analysis engine. Finds SQL injection, XSS, command injection by analysing data flow. Enable via Actions workflow.</p>
+      </div>
+      <div class="card purple" style="margin-top:0.4em;">
+        <h3 class="p">Secret scanning</h3>
+        <p>Automatically detects committed secrets — API keys, tokens, passwords. Over 200 partner patterns. <span class="r">Push protection</span> can block the push before the secret reaches the remote.</p>
+      </div>
+      <div class="card blue" style="margin-top:0.4em;">
+        <h3 class="b">Security advisories</h3>
+        <ul>
+          <li>Private vulnerability reporting — external reporters submit without public disclosure</li>
+          <li>Create advisories with CVE IDs</li>
+          <li>Coordinate patches before public announcement</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════ SLIDE 17 — COPILOT & AI ═══════════════════════════════ -->
+<section data-background-color="#0a0a0f">
+  <div class="slide-hdr">
+    <span class="tag">16</span>
+    <h2>GitHub Copilot &amp; AI Features</h2>
+  </div>
+  <p><span class="a">GitHub Copilot</span> is an AI pair programmer powered by large language models. It integrates into editors and the CLI.</p>
+
+  <div class="cols cols-2" style="margin-top:0.5em;">
+    <div>
+      <table>
+        <thead><tr><th>Product</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td><span class="a">Individual</span></td><td>AI completions in VS Code, JetBrains, Neovim</td></tr>
+          <tr><td><span class="g">Business</span></td><td>Org-managed, policy controls, audit logs</td></tr>
+          <tr><td><span class="p">Enterprise</span></td><td>Fine-tuned on your codebase, knowledge bases</td></tr>
+          <tr><td><span class="b">Chat</span></td><td>Conversational AI in the editor and on github.com</td></tr>
+          <tr><td><span class="a">CLI</span></td><td>Explain and suggest terminal commands</td></tr>
+          <tr><td><span class="g">In PRs</span></td><td>Auto-generated PR summaries and review comments</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <div class="card green">
+        <h3 class="g">Copilot Chat in the editor</h3>
+        <ul>
+          <li>Explain selected code: "What does this function do?"</li>
+          <li>Generate tests: "/tests for this function"</li>
+          <li>Fix errors: "/fix this error"</li>
+          <li>Refactor: "Rewrite this using async/await"</li>
+          <li>Workspace-aware: understands project context</li>
+        </ul>
+      </div>
+      <div class="card purple" style="margin-top:0.4em;">
+        <h3 class="p">Copilot in the CLI</h3>
+        <pre><code>gh copilot explain \
+  "awk '{print $2}' file.txt"
+gh copilot suggest \
+  "find all .log files older \
+  than 30 days"</code></pre>
+      </div>
+      <div class="card blue" style="margin-top:0.4em;">
+        <h3 class="b">Other AI features</h3>
+        <ul>
+          <li><span class="a">Autofix</span> — suggests fixes for code scanning alerts</li>
+          <li><span class="g">Copilot Workspace</span> — plan and implement changes from an issue</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════ SLIDE 18 — GITLAB OVERVIEW ═══════════════════════════════ -->
+<section data-background-color="#0a0a0f">
+  <div class="slide-hdr">
+    <span class="tag">17</span>
+    <h2>GitLab — Platform Overview</h2>
+  </div>
+  <p><span class="p">GitLab</span> is an all-in-one DevSecOps platform. Where GitHub is a code host with bolted-on features, GitLab was designed as a <span class="a">single application</span> covering the entire software development lifecycle.</p>
+
+  <div class="cols cols-2" style="margin-top:0.5em;">
+    <div>
+      <table>
+        <thead><tr><th>Edition</th><th>Hosting</th><th>Cost</th></tr></thead>
+        <tbody>
+          <tr><td><span class="g">Community Edition (CE)</span></td><td>Self-hosted only</td><td>Free, open-source (MIT)</td></tr>
+          <tr><td><span class="a">Enterprise Edition (EE)</span></td><td>Self-hosted</td><td>Paid tiers (Premium, Ultimate)</td></tr>
+          <tr><td><span class="p">GitLab.com</span></td><td>SaaS</td><td>Free tier + paid plans</td></tr>
+        </tbody>
+      </table>
+      <div class="card amber" style="margin-top:0.4em;">
+        <h3 class="a">Single application philosophy</h3>
+        <ul>
+          <li>Built-in CI/CD — <code>.gitlab-ci.yml</code>, no marketplace</li>
+          <li>Built-in container registry — every project gets one</li>
+          <li>Built-in package registry — npm, Maven, PyPI, NuGet</li>
+          <li>Built-in wiki — per-project, Git-backed</li>
+          <li>Built-in SAST/DAST/SCA — security scanning in the pipeline</li>
+          <li>Review apps — deploy a live preview for every merge request</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="card purple">
+        <h3 class="p">Key terminology differences</h3>
+        <table>
+          <thead><tr><th>GitHub</th><th>GitLab</th></tr></thead>
+          <tbody>
+            <tr><td>Repository</td><td>Project</td></tr>
+            <tr><td>Pull request</td><td>Merge request (MR)</td></tr>
+            <tr><td>GitHub Actions</td><td>GitLab CI/CD</td></tr>
+            <tr><td>Organisation</td><td>Group</td></tr>
+            <tr><td>GitHub Pages</td><td>GitLab Pages</td></tr>
+            <tr><td>CODEOWNERS</td><td>CODEOWNERS</td></tr>
+            <tr><td>Gist</td><td>Snippet</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════ SLIDE 19 — GITLAB CI/CD ═══════════════════════════════ -->
+<section data-background-color="#0a0a0f">
+  <div class="slide-hdr">
+    <span class="tag">18</span>
+    <h2>GitLab CI/CD</h2>
+  </div>
+  <div class="cols cols-2">
+    <div>
+      <div class="card amber">
+        <h3 class="a">Example pipeline</h3>
+        <pre><code># .gitlab-ci.yml
+stages:
+  - build
+  - test
+  - deploy
+
+build:
+  stage: build
+  image: node:22-alpine
+  script:
+    - npm ci
+    - npm run build
+  artifacts:
+    paths:
+      - dist/
+
+test:
+  stage: test
+  image: node:22-alpine
+  script:
+    - npm ci
+    - npm test -- --coverage
+
+deploy_production:
+  stage: deploy
+  environment:
+    name: production
+  script:
+    - ./deploy.sh production
+  when: manual
+  only:
+    - tags</code></pre>
+      </div>
+    </div>
+    <div>
+      <table>
+        <thead><tr><th>Aspect</th><th>GitLab CI</th><th>GitHub Actions</th></tr></thead>
+        <tbody>
+          <tr><td>Config</td><td>Single <code>.gitlab-ci.yml</code></td><td>Multiple workflow files</td></tr>
+          <tr><td>Reusability</td><td><code>include:</code> templates</td><td>Marketplace, reusable workflows</td></tr>
+          <tr><td>Registry</td><td>Built-in, per project</td><td>GHCR (separate)</td></tr>
+          <tr><td>Environments</td><td>First-class, review apps</td><td>Protection rules</td></tr>
+          <tr><td>Auto DevOps</td><td>Zero-config pipeline</td><td>No equivalent</td></tr>
+        </tbody>
+      </table>
+      <div class="card green" style="margin-top:0.4em;">
+        <h3 class="g">GitLab-unique features</h3>
+        <ul>
+          <li><span class="a">Auto DevOps</span> — zero-config pipeline that builds, tests, scans, and deploys</li>
+          <li><span class="g">Review apps</span> — deploy every MR to a temporary environment</li>
+          <li><span class="p">Multi-project pipelines</span> — trigger pipelines across multiple projects</li>
+          <li><span class="b">Merge trains</span> — queue MRs and test in sequence to prevent broken main</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════ SLIDE 20 — GITHUB vs GITLAB ═══════════════════════════════ -->
+<section data-background-color="#0a0a0f">
+  <div class="slide-hdr">
+    <span class="tag">19</span>
+    <h2>GitHub vs GitLab — Detailed Comparison</h2>
+  </div>
+  <div class="cols cols-2">
+    <div>
+      <table>
+        <thead><tr><th>Feature</th><th>GitHub</th><th>GitLab</th></tr></thead>
+        <tbody>
+          <tr><td>CI/CD</td><td>Actions (Marketplace)</td><td>Built-in (templates)</td></tr>
+          <tr><td>Container registry</td><td>GHCR</td><td>Built-in, per project</td></tr>
+          <tr><td>Static analysis</td><td>CodeQL (Advanced Security)</td><td>Built-in SAST, DAST, fuzzing</td></tr>
+          <tr><td>Secret scanning</td><td>Built-in + push protection</td><td>Built-in secret detection</td></tr>
+          <tr><td>Project management</td><td>Issues + Projects v2</td><td>Issues + Boards + Epics</td></tr>
+          <tr><td>Self-hosted</td><td>Enterprise Server (paid)</td><td>CE (free) or EE (paid)</td></tr>
+          <tr><td>AI features</td><td>Copilot (paid)</td><td>Duo (paid)</td></tr>
+          <tr><td>Ecosystem</td><td>Huge — 20,000+ Actions</td><td>Smaller, template-based</td></tr>
+          <tr><td>Community</td><td>100M+ developers</td><td>Smaller but significant</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <div class="card amber">
+        <h3 class="a">When to choose GitHub</h3>
+        <ul>
+          <li>Open-source — largest community, discoverability, contributors</li>
+          <li>Teams already using the GitHub ecosystem</li>
+          <li>Projects that benefit from the Marketplace</li>
+          <li>When Copilot and AI-assisted development are priorities</li>
+        </ul>
+      </div>
+      <div class="card purple" style="margin-top:0.4em;">
+        <h3 class="p">When to choose GitLab</h3>
+        <ul>
+          <li>Single platform for the entire DevOps lifecycle</li>
+          <li>Self-hosted requirement with a free option (GitLab CE)</li>
+          <li>Built-in security scanning without extra licensing</li>
+          <li>Regulated industries requiring comprehensive audit trails</li>
+          <li>When review apps and Auto DevOps are valuable</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════ SLIDE 21 — OTHER PLATFORMS ═══════════════════════════════ -->
+<section data-background-color="#0a0a0f">
+  <div class="slide-hdr">
+    <span class="tag">20</span>
+    <h2>Other Git Platforms</h2>
+  </div>
+  <div class="cols cols-2">
+    <div>
+      <div class="card amber">
+        <h3 class="a">Bitbucket (Atlassian)</h3>
+        <ul>
+          <li>Tight integration with Jira and Confluence</li>
+          <li>Bitbucket Pipelines for CI/CD</li>
+          <li>Free for up to 5 users on private repos</li>
+          <li>Best for teams in the Atlassian ecosystem</li>
+        </ul>
+      </div>
+      <div class="card green" style="margin-top:0.4em;">
+        <h3 class="g">Gitea</h3>
+        <ul>
+          <li>Lightweight, self-hosted Git server written in Go</li>
+          <li>Single binary — runs on minimal hardware (Raspberry Pi)</li>
+          <li>GitHub-like interface, MIT-licensed</li>
+          <li>No built-in CI — pair with Woodpecker CI or Drone</li>
+        </ul>
+      </div>
+      <div class="card purple" style="margin-top:0.4em;">
+        <h3 class="p">Forgejo</h3>
+        <p>Community fork of Gitea (post-governance dispute). Identical feature set, different governance. Backed by Codeberg (non-profit hosting).</p>
+      </div>
+    </div>
+    <div>
+      <div class="card blue">
+        <h3 class="b">Azure DevOps</h3>
+        <ul>
+          <li>Microsoft's enterprise DevOps platform</li>
+          <li>Azure Repos (Git hosting) + Azure Pipelines (CI/CD)</li>
+          <li>Deep Azure cloud integration</li>
+          <li>Being succeeded by GitHub for many Microsoft-ecosystem teams</li>
+        </ul>
+      </div>
+      <table style="margin-top:0.4em;">
+        <thead><tr><th>Platform</th><th>Best for</th><th>CI/CD</th><th>Self-host</th></tr></thead>
+        <tbody>
+          <tr><td><span class="a">GitHub</span></td><td>Open source, community</td><td>Actions</td><td>Enterprise (paid)</td></tr>
+          <tr><td><span class="p">GitLab</span></td><td>Full DevOps lifecycle</td><td>Built-in</td><td>CE (free)</td></tr>
+          <tr><td><span class="b">Bitbucket</span></td><td>Atlassian shops</td><td>Pipelines</td><td>Data Center (paid)</td></tr>
+          <tr><td><span class="g">Gitea</span></td><td>Lightweight self-host</td><td>External</td><td>Yes (free)</td></tr>
+          <tr><td><span style="color:var(--muted)">Azure DevOps</span></td><td>Azure enterprises</td><td>Pipelines</td><td>Server (paid)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════ SLIDE 22 — SUMMARY ═══════════════════════════════ -->
+<section data-background-color="#0a0a0f">
+  <div class="slide-hdr">
+    <span class="tag">21</span>
+    <h2>Summary &amp; Next Steps</h2>
+  </div>
+  <div class="cols cols-2">
+    <div>
+      <div class="card amber">
+        <h3 class="a">What we covered</h3>
+        <ul>
+          <li>GitHub as a platform — repos, branches, PRs, and code review</li>
+          <li>Markdown on GitHub — GFM, extensions, where it's used</li>
+          <li>Issues and Projects — lightweight project management</li>
+          <li>GitHub Actions — workflows, syntax, advanced patterns</li>
+          <li>GitHub CLI — terminal-driven workflows with <code>gh</code></li>
+          <li>Pages, Releases, and Packages — hosting and distribution</li>
+          <li>Security — Dependabot, CodeQL, secret scanning</li>
+          <li>Copilot — AI-assisted development</li>
+          <li>GitLab — platform overview, CI/CD, unique features</li>
+          <li>GitHub vs GitLab — when to choose each</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="card green">
+        <h3 class="g">Recommended next steps</h3>
+        <ol style="padding-left:1.2em;">
+          <li>Set up <code>gh</code> CLI and authenticate</li>
+          <li>Add branch protection rules to your main branch</li>
+          <li>Create a <code>.github/workflows/ci.yml</code> for your next project</li>
+          <li>Configure Dependabot for automated dependency updates</li>
+          <li>Try GitHub Projects (v2) for your next sprint</li>
+          <li>Spin up a GitLab CE instance and compare workflows</li>
+        </ol>
+      </div>
+      <div class="card blue" style="margin-top:0.5em;">
+        <h3 class="b">Further reading</h3>
+        <p>GitHub Docs — docs.github.com · GitHub CLI Manual — cli.github.com/manual · GitHub Skills — skills.github.com · GitLab Docs — docs.gitlab.com · Pro Git (2nd ed.) — git-scm.com/book (free)</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+</div><!-- /.slides -->
+</div><!-- /.reveal -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/plugin/highlight/highlight.min.js"></script>
+<script>
+Reveal.initialize({
+  hash: true,
+  slideNumber: 'c/t',
+  transition: 'fade',
+  transitionSpeed: 'fast',
+  controls: true,
+  progress: true,
+  center: false,
+  width: 1100,
+  height: 900,
+  margin: 0.01,
+  plugins: [RevealHighlight],
+  highlight: { theme: 'monokai' }
+});
+</script>
+<script>
+(function(){
+  var h = Reveal.getConfig().height || 900;
+  var m = Reveal.getConfig().margin || 0.02;
+  var maxH = Math.floor(h * (1 - 2 * m)) + 'px';
+  function fixSlides(){
+    document.querySelectorAll('.reveal .slides>section,.reveal .slides>section>section').forEach(function(s){
+      s.style.display = 'block';
+      s.style.maxHeight = maxH;
+    });
+  }
+  Reveal.on('ready', fixSlides);
+  Reveal.on('slidechanged', fixSlides);
+})();
+</script>
+</body>
+</html>
