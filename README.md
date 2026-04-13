@@ -13,7 +13,7 @@ An interactive Reveal.js presentation covering GitHub — repositories, pull req
 | # | Topic | Description |
 |---|-------|-------------|
 | 01 | Title | GitHub platform overview |
-| 02 | Agenda | Topics at a glance |
+| 02 | Topics | Topics at a glance |
 | 03 | What Is GitHub? | History, scale, and what GitHub adds to Git |
 | 04 | Repositories | Repo anatomy, key files, visibility settings |
 | 05 | Markdown on GitHub | GFM syntax, code blocks, GitHub-specific extensions |
