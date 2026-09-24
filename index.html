@@ -11,17 +11,17 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/black.min.css">
 <style>
   :root {
-    --amber:  #f5a623;
-    --green:  #4ecb8d;
-    --purple: #a78bfa;
-    --blue:   #60a5fa;
-    --red:    #f87171;
-    --bg:     #0a0a0f;
-    --bg2:    #10101a;
-    --bg3:    #181824;
-    --border: #2a2a3a;
-    --text:   #e8e8f0;
-    --muted:  #8888a8;
+    --amber:  #efba4d;
+    --green:  #9dcba3;
+    --purple: #c2aef4;
+    --blue:   #93c6eb;
+    --red:    #f0846a;
+    --bg:     #17193a;
+    --bg2:    #1c1f44;
+    --bg3:    #21254d;
+    --border: #363c6c;
+    --text:   #efece6;
+    --muted:  #9093ba;
   }
 
   .reveal-viewport { background: var(--bg); }
@@ -37,7 +37,7 @@
   .reveal code { font-family: 'JetBrains Mono', monospace; font-size: .72em; }
   .reveal pre  { box-shadow: none; background: var(--bg3); border: 1px solid var(--border);
                  border-radius: 6px; padding: .3em .5em; margin: .25em 0; }
-  .reveal pre code { font-size: .52em; line-height: 1.35; background: transparent; color: #cdd6f4; }
+  .reveal pre code { font-size: .52em; line-height: 1.35; background: transparent; color: #dedde3; }
 
   /* ── slide chrome ── */
   .slide-hdr {
@@ -72,16 +72,16 @@
   .card.blue  { border-left: 3px solid var(--blue); }
   .card.red   { border-left: 3px solid var(--red); }
   .card h3 { font-size: .64em; margin: 0 0 .12em; }
-  .card p  { font-size: .52em; margin: 0; color: #b8b8d0; }
+  .card p  { font-size: .52em; margin: 0; color: #c3c4dc; }
   .card ul { margin: 0; padding-left: 1em; }
-  .card li { font-size: .52em; color: #b8b8d0; margin-bottom: .02em; }
+  .card li { font-size: .52em; color: #c3c4dc; margin-bottom: .02em; }
 
   /* ── table ── */
   .reveal table { width: 100%; border-collapse: collapse; font-size: .5em; }
   .reveal table th { background: var(--bg3); color: var(--amber); font-weight: 600;
                      padding: .2em .4em; border: 1px solid var(--border); text-align: left; }
-  .reveal table td { padding: .18em .4em; border: 1px solid var(--border); color: #ccc; }
-  .reveal table tr:nth-child(even) td { background: #0e0e18; }
+  .reveal table td { padding: .18em .4em; border: 1px solid var(--border); color: #d4d4e1; }
+  .reveal table tr:nth-child(even) td { background: #1b1d41; }
 
   /* ── accent spans ── */
   .a  { color: var(--amber); font-weight: 600; }
@@ -124,8 +124,8 @@
     padding: .2em .55em; border-radius: 5px; font-size: .9em;
     background: var(--bg3); border: 1px solid var(--border); color: var(--text);
   }
-  .ss-node.active { background: #1a2a1a; border-color: var(--green); color: var(--green); }
-  .ss-node.done   { background: #1a1a2a; border-color: var(--purple); color: var(--purple); }
+  .ss-node.active { background: #333c41; border-color: var(--green); color: var(--green); }
+  .ss-node.done   { background: #232851; border-color: var(--purple); color: var(--purple); }
   .ss-arrow { color: var(--amber); }
   .ss-label { font-size: .8em; color: var(--muted); margin-left: .3em; }
 
@@ -140,7 +140,7 @@
 
 
 <!-- ═══════════════════════════════ SLIDE 01 — TITLE ═══════════════════════════════ -->
-<section class="title-slide" data-background-color="#0a0a0f">
+<section class="title-slide" data-background-color="#17193a">
   <div style="text-align:left; max-width:820px; margin:0 auto; padding: 1em 0;">
     <div style="font-family:'JetBrains Mono',monospace; font-size:.5em; color:var(--muted); margin-bottom:.4em; letter-spacing:.1em;">
       TECHNICAL PRESENTATION
@@ -167,7 +167,7 @@
       <span class="ss-arrow">→</span>
       <span class="ss-node done">🚀 Deploy</span>
     </div>
-    <p style="max-width:620px; color:#a0a0c0; font-size:.56em; line-height:1.5; margin-top:1em;">
+    <p style="max-width:620px; color:#abadcd; font-size:.56em; line-height:1.5; margin-top:1em;">
       From repositories and pull requests to CI/CD pipelines and the GitHub CLI
     </p>
     <div class="meta" style="margin-top:1.4em;">
@@ -178,7 +178,7 @@
 
 
 <!-- ═══════════════════════════════ SLIDE 02 — AGENDA ═══════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#17193a">
   <div class="slide-hdr">
     <span class="tag">01</span>
     <h2>Topics</h2>
@@ -225,7 +225,7 @@
 
 
 <!-- ═══════════════════════════════ SLIDE 03 — WHAT IS GITHUB ═══════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#17193a">
   <div class="slide-hdr">
     <span class="tag">02</span>
     <h2>What Is GitHub?</h2>
@@ -266,7 +266,7 @@
 
 
 <!-- ═══════════════════════════════ SLIDE 04 — REPOS & INTERFACE ═══════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#17193a">
   <div class="slide-hdr">
     <span class="tag">03</span>
     <h2>Repositories &amp; the GitHub Interface</h2>
@@ -312,7 +312,7 @@
 
 
 <!-- ═══════════════════════════════ SLIDE 05 — MARKDOWN ═══════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#17193a">
   <div class="slide-hdr">
     <span class="tag">04</span>
     <h2>Markdown on GitHub</h2>
@@ -345,7 +345,7 @@
       <div class="card green">
         <h3 class="g">GitHub-specific extensions</h3>
         <ul>
-          <li><code>#123</code> — auto-links to issue or PR number 123</li>
+          <li><code>#292e5b</code> — auto-links to issue or PR number 123</li>
           <li><code>@username</code> — mentions a user (sends notification)</li>
           <li><code>:emoji_name:</code> — renders emoji</li>
           <li><code>&lt;details&gt;</code> — collapsible sections</li>
@@ -362,7 +362,7 @@
 
 
 <!-- ═══════════════════════════════ SLIDE 06 — BRANCHING & PRs ═══════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#17193a">
   <div class="slide-hdr">
     <span class="tag">05</span>
     <h2>Branching &amp; Pull Requests</h2>
@@ -414,7 +414,7 @@
 
 
 <!-- ═══════════════════════════════ SLIDE 07 — CODE REVIEW ═══════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#17193a">
   <div class="slide-hdr">
     <span class="tag">06</span>
     <h2>Code Review on GitHub</h2>
@@ -464,7 +464,7 @@ docs/       @tech-writers
 
 
 <!-- ═══════════════════════════════ SLIDE 08 — ISSUES & PROJECTS ═══════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#17193a">
   <div class="slide-hdr">
     <span class="tag">07</span>
     <h2>GitHub Issues &amp; Projects</h2>
@@ -516,7 +516,7 @@ body:
 
 
 <!-- ═══════════════════════════════ SLIDE 09 — ACTIONS FOUNDATIONS ═══════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#17193a">
   <div class="slide-hdr">
     <span class="tag">08</span>
     <h2>GitHub Actions — Foundations</h2>
@@ -564,7 +564,7 @@ body:
 
 
 <!-- ═══════════════════════════════ SLIDE 10 — ACTIONS SYNTAX ═══════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#17193a">
   <div class="slide-hdr">
     <span class="tag">09</span>
     <h2>GitHub Actions — Workflow Syntax</h2>
@@ -630,7 +630,7 @@ jobs:
 
 
 <!-- ═══════════════════════════════ SLIDE 11 — ACTIONS ADVANCED ═══════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#17193a">
   <div class="slide-hdr">
     <span class="tag">10</span>
     <h2>GitHub Actions — Advanced Patterns</h2>
@@ -689,7 +689,7 @@ jobs:
 
 
 <!-- ═══════════════════════════════ SLIDE 12 — GITHUB CLI ═══════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#17193a">
   <div class="slide-hdr">
     <span class="tag">11</span>
     <h2>GitHub CLI (gh)</h2>
@@ -755,7 +755,7 @@ gh issue close 99</code></pre>
 
 
 <!-- ═══════════════════════════════ SLIDE 13 — CLI WORKFLOWS ═══════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#17193a">
   <div class="slide-hdr">
     <span class="tag">12</span>
     <h2>GitHub CLI — Workflow Examples</h2>
@@ -824,7 +824,7 @@ done</code></pre>
 
 
 <!-- ═══════════════════════════════ SLIDE 14 — PAGES & RELEASES ═══════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#17193a">
   <div class="slide-hdr">
     <span class="tag">13</span>
     <h2>GitHub Pages &amp; Releases</h2>
@@ -891,7 +891,7 @@ jobs:
 
 
 <!-- ═══════════════════════════════ SLIDE 15 — PACKAGES & GHCR ═══════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#17193a">
   <div class="slide-hdr">
     <span class="tag">14</span>
     <h2>GitHub Packages &amp; Container Registry</h2>
@@ -946,7 +946,7 @@ jobs:
 
 
 <!-- ═══════════════════════════════ SLIDE 16 — SECURITY ═══════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#17193a">
   <div class="slide-hdr">
     <span class="tag">15</span>
     <h2>GitHub Security Features</h2>
@@ -994,7 +994,7 @@ updates:
 
 
 <!-- ═══════════════════════════════ SLIDE 17 — COPILOT & AI ═══════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#17193a">
   <div class="slide-hdr">
     <span class="tag">16</span>
     <h2>GitHub Copilot &amp; AI Features</h2>
@@ -1047,7 +1047,7 @@ gh copilot suggest \
 
 
 <!-- ═══════════════════════════════ SLIDE 18 — GITLAB OVERVIEW ═══════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#17193a">
   <div class="slide-hdr">
     <span class="tag">17</span>
     <h2>GitLab — Platform Overview</h2>
@@ -1098,7 +1098,7 @@ gh copilot suggest \
 
 
 <!-- ═══════════════════════════════ SLIDE 19 — GITLAB CI/CD ═══════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#17193a">
   <div class="slide-hdr">
     <span class="tag">18</span>
     <h2>GitLab CI/CD</h2>
@@ -1167,7 +1167,7 @@ deploy_production:
 
 
 <!-- ═══════════════════════════════ SLIDE 20 — GITHUB vs GITLAB ═══════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#17193a">
   <div class="slide-hdr">
     <span class="tag">19</span>
     <h2>GitHub vs GitLab — Detailed Comparison</h2>
@@ -1215,7 +1215,7 @@ deploy_production:
 
 
 <!-- ═══════════════════════════════ SLIDE 21 — OTHER PLATFORMS ═══════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#17193a">
   <div class="slide-hdr">
     <span class="tag">20</span>
     <h2>Other Git Platforms</h2>
@@ -1271,7 +1271,7 @@ deploy_production:
 
 
 <!-- ═══════════════════════════════ SLIDE 22 — SUMMARY ═══════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#17193a">
   <div class="slide-hdr">
     <span class="tag">21</span>
     <h2>Summary &amp; Next Steps</h2>
